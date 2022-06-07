@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/drawable/edit_text_background.xml" value="0.1775" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1775" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/popup_terms_and_conditions.xml" value="0.24230072463768115" />
       </map>
     </option>
   </component>

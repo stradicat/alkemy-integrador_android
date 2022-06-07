@@ -1,5 +1,9 @@
 package org.alkemy.integradorandroid.utils
 
+import android.app.Activity
+import android.view.View
+import com.google.android.material.snackbar.Snackbar
+import org.alkemy.integradorandroid.R
 import java.util.regex.Pattern
 
 class Utils {
@@ -13,5 +17,13 @@ class Utils {
         return regExp.toRegex().matches(input)
     }
 
+    // Show a custom message
+    fun snackBar(view: View, message: String){
+        Snackbar.make(
+            view,
+            message,
+            Snackbar.LENGTH_LONG
+        ).show()
+    }
 
 }
