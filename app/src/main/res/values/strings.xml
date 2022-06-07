@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Integrador Android</string>
+
+    //Home Activity
+    <string name="home_title">Not Bored</string>
+    <string name="home_title_participants">Participants</string>
+    <string name="home_edit_text_hint">Enter a number of participants (min.1)</string>
+    <string name="home_btn_start">Start</string>
+    <string name="home_terms_and_conditions"><u>Terms and conditions</u></string>
+    <string name="home_snack_bar_error">Please enter a number greater than 0</string>
+
 </resources>
