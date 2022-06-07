@@ -3,8 +3,7 @@ package org.alkemy.integradorandroid.ui.home
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.DialogFragment
 import org.alkemy.integradorandroid.R
 import org.alkemy.integradorandroid.databinding.ActivityHomeBinding
 import org.alkemy.integradorandroid.utils.Utils
@@ -36,6 +35,7 @@ class HomeActivity : AppCompatActivity() {
 
         binding.termsAndConditions.setOnClickListener {
             val dialogPopUp = TermsAndConditionPopUp()
+            dialogPopUp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen)
             dialogPopUp.show(supportFragmentManager, "termsAndConditions")
         }
     }
