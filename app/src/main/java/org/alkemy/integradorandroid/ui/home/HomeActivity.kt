@@ -1,11 +1,13 @@
 package org.alkemy.integradorandroid.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import org.alkemy.integradorandroid.R
 import org.alkemy.integradorandroid.databinding.ActivityHomeBinding
+import org.alkemy.integradorandroid.ui.activitieslist.ListActivity
 import org.alkemy.integradorandroid.utils.Utils
 
 private var participants: String? = null
@@ -29,6 +31,7 @@ class HomeActivity : AppCompatActivity() {
             participants = if (utils.validateInput(charSequence.toString())) {
                 charSequence.toString()
             } else {
+                binding.startBtn.isFocusable = false
                 utils.snackBar(binding.root, getString(R.string.home_snack_bar_error))
                 null
             }
@@ -41,6 +44,11 @@ class HomeActivity : AppCompatActivity() {
                 android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen
             )
             dialogPopUp.show(supportFragmentManager, "termsAndConditions")
+        }
+
+        binding.startBtn.setOnClickListener {
+            val intent = Intent(this, ListActivity::class.java)
+            startActivity(intent)
         }
     }
 }
