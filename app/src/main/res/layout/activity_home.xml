@@ -46,10 +46,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         android:inputType="number"
-        android:digits="123456789"
-        android:autofillHints="Put a number"
+        android:autofillHints="Enter a number"
+        android:digits="1234567890"
         android:hint="@string/home_edit_text_hint"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone" />
 
     <Button
         android:layout_width="match_parent"

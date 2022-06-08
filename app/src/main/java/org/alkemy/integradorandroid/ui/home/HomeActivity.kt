@@ -9,13 +9,14 @@ import org.alkemy.integradorandroid.databinding.ActivityHomeBinding
 import org.alkemy.integradorandroid.utils.Utils
 
 private var participants: String? = null
+
 //private lateinit var adapter : DogAdapter
 private var dogList = mutableListOf<String>()
 private val utils = Utils()
 
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityHomeBinding
+    private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +36,10 @@ class HomeActivity : AppCompatActivity() {
 
         binding.termsAndConditions.setOnClickListener {
             val dialogPopUp = TermsAndConditionPopUp()
-            dialogPopUp.setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen)
+            dialogPopUp.setStyle(
+                DialogFragment.STYLE_NORMAL,
+                android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen
+            )
             dialogPopUp.show(supportFragmentManager, "termsAndConditions")
         }
     }
