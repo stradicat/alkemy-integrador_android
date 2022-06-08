@@ -1,9 +1,7 @@
 package org.alkemy.integradorandroid.utils
 
-import android.app.Activity
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
-import org.alkemy.integradorandroid.R
 import java.util.regex.Pattern
 
 class Utils {
