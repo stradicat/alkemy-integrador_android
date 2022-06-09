@@ -12,6 +12,7 @@ class TermsAndConditionPopUp: DialogFragment() {
     private var _binding: PopupTermsAndConditionsBinding? = null
     private val binding get() = _binding!!
 
+    // Show Terms & Conditions pop-up
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

@@ -33,6 +33,7 @@ class ListActivity : AppCompatActivity() {
 
     }
 
+    // Let's go see some activities
     private fun goToSuggestionActivity(type: String?){
         val intent = Intent(this, SuggestionActivity::class.java).apply {
             putExtra(PARTICIPANTS, participants)
