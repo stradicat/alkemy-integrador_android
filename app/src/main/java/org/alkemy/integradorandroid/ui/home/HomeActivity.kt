@@ -10,14 +10,13 @@ import org.alkemy.integradorandroid.databinding.ActivityHomeBinding
 import org.alkemy.integradorandroid.ui.activitieslist.ListActivity
 import org.alkemy.integradorandroid.utils.Utils
 
-private var participants: String? = null
-
-//private lateinit var adapter : DogAdapter
-private var dogList = mutableListOf<String>()
-private val utils = Utils()
-
 class HomeActivity : AppCompatActivity() {
 
+    private var participants: String? = null
+
+    //private lateinit var adapter : DogAdapter
+    private var dogList = mutableListOf<String>()
+    private val utils = Utils()
     private lateinit var binding: ActivityHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,13 +26,20 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        binding.editText.addTextChangedListener { charSequence ->
-            participants = if (utils.validateInput(charSequence.toString())) {
-                charSequence.toString()
-            } else {
-                binding.startBtn.isFocusable = false
-                utils.snackBar(binding.root, getString(R.string.home_snack_bar_error))
-                null
+        binding.editText.addTextChangedListener { s ->
+            when {
+                s.toString() == "0" -> {
+                    binding.startBtn.isEnabled = false
+                    utils.snackBar(binding.root, getString(R.string.home_snack_bar_error))
+                }
+                s.toString().isEmpty() -> {
+                    binding.startBtn.isEnabled = true
+                    participants = null
+                }
+                else -> {
+                    participants = s.toString()
+                    binding.startBtn.isEnabled = true
+                }
             }
         }
 
@@ -47,8 +53,14 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.startBtn.setOnClickListener {
-            val intent = Intent(this, ListActivity::class.java)
+            val intent = Intent(this, ListActivity::class.java).apply {
+                putExtra(PARTICIPANTS, participants)
+            }
             startActivity(intent)
         }
+    }
+
+    companion object{
+        const val PARTICIPANTS = "participants"
     }
 }

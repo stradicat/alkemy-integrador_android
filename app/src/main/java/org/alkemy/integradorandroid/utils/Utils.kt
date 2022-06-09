@@ -12,7 +12,7 @@ class Utils {
         Pattern.compile("\\d{1,3}")
 
     fun validateInput(input: String): Boolean {
-        return regExp.toRegex().matches(input)
+        return regExp.toRegex().matches(input) && input.toInt() > 0
     }
 
     // Show a custom message
