@@ -6,10 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import org.alkemy.integradorandroid.R
 import org.alkemy.integradorandroid.databinding.ActivityListBinding
 import org.alkemy.integradorandroid.ui.suggestion.SuggestionActivity
-import org.alkemy.integradorandroid.utils.Utils
 
 class ListActivity : AppCompatActivity() {
-    private val utils = Utils()
     private var participants : String? = null
     private lateinit var binding: ActivityListBinding
 
