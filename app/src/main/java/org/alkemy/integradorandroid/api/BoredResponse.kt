@@ -13,9 +13,11 @@ data class BoredResponse(
     @SerializedName("price")
     var price: Float,
     @SerializedName("link")
-    var link: Url,
+    var link: String,
     @SerializedName("key")
     var key: Int,
     @SerializedName("accesibility")
-    var accessibility: Float
+    var accessibility: Float,
+    @SerializedName("error")
+    var error: String
 )

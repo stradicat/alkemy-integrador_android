@@ -133,9 +133,11 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/ic_format_list_bulleted"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagePrice" />
+        app:layout_constraintTop_toBottomOf="@+id/imagePrice"
+        android:visibility="gone"/>
 
     <TextView
+        android:id="@+id/activity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -146,9 +148,12 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageActivities"
         app:layout_constraintEnd_toStartOf="@+id/priceLevel"
         app:layout_constraintStart_toEndOf="@+id/imagePrice"
-        app:layout_constraintTop_toTopOf="@+id/imageActivities" />
+        app:layout_constraintTop_toTopOf="@+id/imageActivities"
+        app:layout_constraintVertical_bias="1.0"
+        android:visibility="gone"/>
 
     <Button
+        android:id="@+id/tryanother"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="Try another"

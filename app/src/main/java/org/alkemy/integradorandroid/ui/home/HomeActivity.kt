@@ -12,8 +12,6 @@ import org.alkemy.integradorandroid.utils.Utils
 
 private var participants: String? = null
 
-//private lateinit var adapter : DogAdapter
-private var dogList = mutableListOf<String>()
 private val utils = Utils()
 
 class HomeActivity : AppCompatActivity() {
@@ -48,7 +46,10 @@ class HomeActivity : AppCompatActivity() {
 
         binding.startBtn.setOnClickListener {
             val intent = Intent(this, ListActivity::class.java)
+                .apply { putExtra("participants",binding.editText.text.toString())}
             startActivity(intent)
+
+
         }
     }
 }

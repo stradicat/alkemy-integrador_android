@@ -47,14 +47,14 @@
 
     //Activities List
     <string name="list_activities_title">Activities</string>
-    <string name="list_btn_education">Education</string>
-    <string name="list_btn_recreational">Recreational</string>
-    <string name="list_btn_social">Social</string>
-    <string name="list_btn_diy">Diy</string>
-    <string name="list_btn_charity">Charity</string>
-    <string name="list_btn_cooking">Cooking</string>
-    <string name="list_btn_relaxation">Relaxation</string>
-    <string name="list_btn_music">Music</string>
-    <string name="list_btn_busywork">Busywork</string>
+    <string name="list_btn_education">education</string>
+    <string name="list_btn_recreational">recreational</string>
+    <string name="list_btn_social">social</string>
+    <string name="list_btn_diy">diy</string>
+    <string name="list_btn_charity">charity</string>
+    <string name="list_btn_cooking">cooking</string>
+    <string name="list_btn_relaxation">relaxation</string>
+    <string name="list_btn_music">music</string>
+    <string name="list_btn_busywork">busywork</string>
 
 </resources>
