@@ -5,7 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_list.xml" value="0.19954648526077098" />
-        <entry key="app/src/main/res/layout/activity_suggestion.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_suggestion.xml" value="0.25" />
         <entry key="app/src/main/res/layout/popup_terms_and_conditions.xml" value="0.17" />
       </map>
     </option>
