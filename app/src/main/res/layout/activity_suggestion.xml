@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
@@ -30,18 +30,19 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
+            android:id="@+id/backBtn"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/ic_navigate_before"
             android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            android:background="@drawable/ic_navigate_before"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView2" />
+            app:layout_constraintTop_toTopOf="@+id/title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
@@ -61,7 +62,7 @@
         android:layout_marginTop="64dp"
         android:background="@drawable/ic_person"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/activity" />
 
     <TextView
         android:id="@+id/textView4"
@@ -133,9 +134,11 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/ic_format_list_bulleted"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagePrice" />
+        app:layout_constraintTop_toBottomOf="@+id/imagePrice"
+        android:visibility="gone"/>
 
     <TextView
+        android:id="@+id/randomActivity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -146,9 +149,11 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageActivities"
         app:layout_constraintEnd_toStartOf="@+id/priceLevel"
         app:layout_constraintStart_toEndOf="@+id/imagePrice"
-        app:layout_constraintTop_toTopOf="@+id/imageActivities" />
+        app:layout_constraintTop_toTopOf="@+id/imageActivities"
+        android:visibility="gone"/>
 
     <Button
+        android:id="@+id/tryAnother"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="Try another"
