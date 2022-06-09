@@ -22,8 +22,6 @@ class ListActivity : AppCompatActivity() {
         // Get the Intent that started this activity and extract the string
         participants = intent.getStringExtra(PARTICIPANTS)
 
-        utils.snackBar(binding.root, participants.toString())
-
         binding.randomBtn.setOnClickListener { goToSuggestionActivity("Random") }
         binding.education.setOnClickListener { goToSuggestionActivity(binding.education.text.toString())  }
         binding.recreational.setOnClickListener { goToSuggestionActivity(binding.recreational.text.toString()) }
