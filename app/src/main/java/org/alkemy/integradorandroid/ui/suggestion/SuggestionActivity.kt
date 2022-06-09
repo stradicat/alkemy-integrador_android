@@ -1,13 +1,15 @@
 package org.alkemy.integradorandroid.ui.suggestion
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.alkemy.integradorandroid.R
 import org.alkemy.integradorandroid.api.BoredAPI
-import org.alkemy.integradorandroid.api.BoredAPIaccess
 import org.alkemy.integradorandroid.api.BoredResponse
 import org.alkemy.integradorandroid.databinding.ActivitySuggestionBinding
 import org.alkemy.integradorandroid.ui.activitieslist.ListActivity.Companion.ACTIVITY_TYPE
@@ -15,6 +17,7 @@ import org.alkemy.integradorandroid.ui.activitieslist.ListActivity.Companion.PAR
 import org.alkemy.integradorandroid.utils.Utils
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import org.alkemy.integradorandroid.api.BoredAPIaccess.Companion as BoredAPIaccess
 
 class SuggestionActivity : AppCompatActivity() {
 
@@ -35,52 +38,62 @@ class SuggestionActivity : AppCompatActivity() {
         if(type == "Random"){
             type = null
         }
-
-        api(type?.let { "?type=$it&" } ?: ("?" + participants?.let { "participants=$it" }),
-            type ?:"Random")
+        recuestApi(type?.let { "?type=$it&" + participants?.let { "participants=$it" } } ?: ("?" + participants?.let { "participants=$it" }),
+            type.let { it } ?:"Random")
 
         binding.backBtn.setOnClickListener{
             onBackPressed()
         }
 
         binding.tryAnother.setOnClickListener {
-            api(type?.let { "?type=$it&" } ?: ("?" + participants?.let { "participants=$it" }),
-                type ?:"Random")
+            recuestApi(type?.let { "?type=$it&" + participants?.let { "participants=$it" }  } ?: ("?" + participants?.let { "participants=$it" }),
+                type.let { it } ?:"Random")
         }
-
-/*
-        binding.participantsNumber.text = participants ?: "0"
-        binding.title.text = type ?: "Random"
-        binding.randomActivity.text = type ?: ""
-
-        utils.snackBar(binding.root, participants.toString() + " " + type.toString())*/
-
     }
 
-    private fun api(query: String,activities :String){
+    private fun recuestApi(query: String, activities :String){
         CoroutineScope(Dispatchers.IO).launch {
-            val apiRest= getBoredAPRandom()
+            val restApi= getBoredAP()
                 .create(BoredAPI::class.java)
-                .getBoredFromAPI("$query")
-            val apicue : BoredResponse? = apiRest.body()
+                .getBoredFromAPI(query)
+            val bodyApi : BoredResponse? = restApi.body()
+
+
+
             when{
-                apiRest.isSuccessful && activities == "Random" -> {
+                restApi.isSuccessful && activities == "Random" -> {
                     runOnUiThread {
-                        binding.participantsNumber.text = apicue?.participants.toString()
-                        binding.priceLevel.text =   apicue?.price?.let { calculate(it) }
-                        binding.randomActivity.text  =   apicue?.activity.toString()
+                        binding.participantsNumber.text = bodyApi?.participants.toString()
+                        binding.priceLevel.text =   bodyApi?.price?.let { calculate(it) }
+                        binding.randomActivity.text  =   bodyApi?.type.toString()
                         binding.title.text  =   "Random"
-                        binding.activity.text = apicue?.type.toString()
+                        binding.activity.text = bodyApi?.activity.toString()
                         binding.imageActivities.visibility = View.VISIBLE
-                        binding.activity.visibility = View.VISIBLE
+                        binding.randomActivity.visibility = View.VISIBLE
                     }
                 }
-                apiRest.isSuccessful -> {
+                restApi.isSuccessful -> {
                     runOnUiThread {
-                        binding.participantsNumber.text = apicue?.participants.toString()
-                        binding.priceLevel.text =   apicue?.price?.let { calculate(it) }
-                        binding.randomActivity.text  =   apicue?.activity.toString()
-                        binding.title.text  =   apicue?.type.toString()
+                        if (bodyApi?.activity.toString().isEmpty() || bodyApi?.activity == null) {
+
+                            utils.snackBar(
+                                binding.root,
+                                getString(R.string.suggestion_snack_bar_error)
+                            )
+                            Handler(Looper.getMainLooper()).postDelayed(
+                                {
+                                    onBackPressed()
+                                },
+                                2000 // value in milliseconds
+                            )
+
+                        } else {
+                            binding.participantsNumber.text = bodyApi?.participants.toString()
+                            binding.priceLevel.text = bodyApi?.price?.let { calculate(it) }
+                            binding.activity.text = bodyApi?.activity.toString()
+                            binding.title.text = bodyApi?.type.toString()
+                        }
+
                     }
                 }
             }
@@ -97,7 +110,8 @@ class SuggestionActivity : AppCompatActivity() {
         }
     }
     // Access API on the 'random activities' endpoint:
-    private fun getBoredAPRandom(): Retrofit {
+    private fun getBoredAP(): Retrofit {
+        println(BoredAPIaccess.BASE_URL)
         return Retrofit.Builder()
             .baseUrl("${BoredAPIaccess.BASE_URL}/")
             .addConverterFactory(GsonConverterFactory.create())

@@ -14,8 +14,6 @@ class HomeActivity : AppCompatActivity() {
 
     private var participants: String? = null
 
-    //private lateinit var adapter : DogAdapter
-    private var dogList = mutableListOf<String>()
     private val utils = Utils()
     private lateinit var binding: ActivityHomeBinding
 

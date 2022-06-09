@@ -134,7 +134,8 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/ic_format_list_bulleted"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagePrice" />
+        app:layout_constraintTop_toBottomOf="@+id/imagePrice"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/randomActivity"
@@ -148,7 +149,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageActivities"
         app:layout_constraintEnd_toStartOf="@+id/priceLevel"
         app:layout_constraintStart_toEndOf="@+id/imagePrice"
-        app:layout_constraintTop_toTopOf="@+id/imageActivities" />
+        app:layout_constraintTop_toTopOf="@+id/imageActivities"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/tryAnother"
