@@ -10,21 +10,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.alkemy.integradorandroid.R
 import org.alkemy.integradorandroid.api.BoredAPI
+import org.alkemy.integradorandroid.api.BoredAPIaccess
 import org.alkemy.integradorandroid.api.BoredResponse
 import org.alkemy.integradorandroid.databinding.ActivitySuggestionBinding
 import org.alkemy.integradorandroid.ui.activitieslist.ListActivity.Companion.ACTIVITY_TYPE
 import org.alkemy.integradorandroid.ui.activitieslist.ListActivity.Companion.PARTICIPANTS
 import org.alkemy.integradorandroid.utils.Utils
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import org.alkemy.integradorandroid.api.BoredAPIaccess.Companion as BoredAPIaccess
 
 class SuggestionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySuggestionBinding
     private val utils = Utils()
-    private var participants : String? = null
-    private var type : String? = null
+    private var participants: String? = null
+    private var type: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,38 +33,42 @@ class SuggestionActivity : AppCompatActivity() {
         participants = intent.getStringExtra(PARTICIPANTS)
         type = intent.getStringExtra(ACTIVITY_TYPE)
 
-        if(type == "Random"){
+        if (type == "Random") {
             type = null
         }
-        recuestApi(type?.let { "?type=$it&" + participants?.let { "participants=$it" } } ?: ("?" + participants?.let { "participants=$it" }),
-            type.let { it } ?:"Random")
+        requestApi(type?.let { "?type=$it&" + participants?.let { "participants=$it" } }
+            ?: ("?" + participants?.let { "participants=$it" }),
+            type ?: "Random"
+        )
 
-        binding.backBtn.setOnClickListener{
+        binding.backBtn.setOnClickListener {
             onBackPressed()
         }
 
         binding.tryAnother.setOnClickListener {
-            recuestApi(type?.let { "?type=$it&" + participants?.let { "participants=$it" }  } ?: ("?" + participants?.let { "participants=$it" }),
-                type.let { it } ?:"Random")
+            requestApi(type?.let { "?type=$it&" + participants?.let { "participants=$it" } }
+                ?: ("?" + participants?.let { "participants=$it" }),
+                type ?: "Random"
+            )
         }
     }
 
-    private fun recuestApi(query: String, activities :String){
+    // Asynchronous API request method
+    private fun requestApi(query: String, activities: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val restApi= getBoredAP()
+            val restApi = BoredAPIaccess().getBoredAP()
                 .create(BoredAPI::class.java)
                 .getBoredFromAPI(query)
-            val bodyApi : BoredResponse? = restApi.body()
+            val bodyApi: BoredResponse? = restApi.body()
 
-
-
-            when{
+            // API response validation
+            when {
                 restApi.isSuccessful && activities == "Random" -> {
                     runOnUiThread {
                         binding.participantsNumber.text = bodyApi?.participants.toString()
-                        binding.priceLevel.text =   bodyApi?.price?.let { calculate(it) }
-                        binding.randomActivity.text  =   bodyApi?.type.toString()
-                        binding.title.text  =   "Random"
+                        binding.priceLevel.text = bodyApi?.price?.let { calculate(it) }
+                        binding.randomActivity.text = bodyApi?.type.toString()
+                        binding.title.text = "Random"
                         binding.activity.text = bodyApi?.activity.toString()
                         binding.imageActivities.visibility = View.VISIBLE
                         binding.randomActivity.visibility = View.VISIBLE
@@ -88,19 +90,19 @@ class SuggestionActivity : AppCompatActivity() {
                             )
 
                         } else {
-                            binding.participantsNumber.text = bodyApi?.participants.toString()
-                            binding.priceLevel.text = bodyApi?.price?.let { calculate(it) }
-                            binding.activity.text = bodyApi?.activity.toString()
-                            binding.title.text = bodyApi?.type.toString()
+                            binding.participantsNumber.text = bodyApi.participants.toString()
+                            binding.priceLevel.text = calculate(bodyApi.price)
+                            binding.activity.text = bodyApi.activity
+                            binding.title.text = bodyApi.type
                         }
-
                     }
                 }
             }
         }
     }
 
-    private fun calculate(digits: Float) : String{
+    // Price calculation
+    private fun calculate(digits: Float): String {
         return when (digits) {
             0.0f -> "Free"
             in 0.0f..0.3f -> "Low"
@@ -108,13 +110,5 @@ class SuggestionActivity : AppCompatActivity() {
             in 0.6f..1.0f -> "High"
             else -> ""
         }
-    }
-    // Access API on the 'random activities' endpoint:
-    private fun getBoredAP(): Retrofit {
-        println(BoredAPIaccess.BASE_URL)
-        return Retrofit.Builder()
-            .baseUrl("${BoredAPIaccess.BASE_URL}/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
     }
 }
