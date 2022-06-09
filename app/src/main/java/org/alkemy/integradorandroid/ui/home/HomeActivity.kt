@@ -23,7 +23,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        // Validate number of participants
         binding.editText.addTextChangedListener { s ->
             when {
                 s.toString() == "0" -> {
@@ -41,6 +41,7 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        // Show Terms & Conditions
         binding.termsAndConditions.setOnClickListener {
             val dialogPopUp = TermsAndConditionPopUp()
             dialogPopUp.setStyle(

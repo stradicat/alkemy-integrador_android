@@ -36,7 +36,7 @@ class SuggestionActivity : AppCompatActivity() {
         if (type == "Random") {
             type = null
         }
-        requestApi(type?.let { "?type=$it&" + participants?.let { "participants=$it" } }
+        requestApi(type?.let { "?type=${it.lowercase()}&" + participants?.let { "participants=$it" } }
             ?: ("?" + participants?.let { "participants=$it" }),
             type ?: "Random"
         )
@@ -46,7 +46,7 @@ class SuggestionActivity : AppCompatActivity() {
         }
 
         binding.tryAnother.setOnClickListener {
-            requestApi(type?.let { "?type=$it&" + participants?.let { "participants=$it" } }
+            requestApi(type?.let { "?type=${it.lowercase()}&" + participants?.let { "participants=$it" } }
                 ?: ("?" + participants?.let { "participants=$it" }),
                 type ?: "Random"
             )
@@ -93,7 +93,7 @@ class SuggestionActivity : AppCompatActivity() {
                             binding.participantsNumber.text = bodyApi.participants.toString()
                             binding.priceLevel.text = calculate(bodyApi.price)
                             binding.activity.text = bodyApi.activity
-                            binding.title.text = bodyApi.type
+                            binding.title.text = bodyApi.type.substring(0, 1).uppercase() + bodyApi.type.substring(1).lowercase()
                         }
                     }
                 }
