@@ -48,6 +48,5 @@ class ListActivity : AppCompatActivity() {
     companion object {
         const val PARTICIPANTS = "participants"
         const val ACTIVITY_TYPE = "activity_type"
-
     }
 }
