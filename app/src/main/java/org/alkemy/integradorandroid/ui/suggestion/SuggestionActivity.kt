@@ -28,7 +28,8 @@ class SuggestionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivitySuggestionBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val view = binding.root
+        setContentView(view)
 
         participants = intent.getStringExtra(PARTICIPANTS)
         type = intent.getStringExtra(ACTIVITY_TYPE)
@@ -36,7 +37,7 @@ class SuggestionActivity : AppCompatActivity() {
         if (type == "Random") {
             type = null
         }
-        requestApi(type?.let { "?type=${it.lowercase()}&" + participants?.let { "participants=$it" } }
+        requestApi(type?.let { res -> "?type=${res.lowercase()}&" + participants?.let { "participants=$it" } }
             ?: ("?" + participants?.let { "participants=$it" }),
             type ?: "Random"
         )
@@ -46,7 +47,7 @@ class SuggestionActivity : AppCompatActivity() {
         }
 
         binding.tryAnother.setOnClickListener {
-            requestApi(type?.let { "?type=${it.lowercase()}&" + participants?.let { "participants=$it" } }
+            requestApi(type?.let { res -> "?type=${res.lowercase()}&" + participants?.let { "participants=$it" } }
                 ?: ("?" + participants?.let { "participants=$it" }),
                 type ?: "Random"
             )

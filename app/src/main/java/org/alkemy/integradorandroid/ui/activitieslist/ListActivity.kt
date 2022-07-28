@@ -3,7 +3,6 @@ package org.alkemy.integradorandroid.ui.activitieslist
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import org.alkemy.integradorandroid.R
 import org.alkemy.integradorandroid.databinding.ActivityListBinding
 import org.alkemy.integradorandroid.ui.suggestion.SuggestionActivity
 
@@ -12,16 +11,16 @@ class ListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list)
         binding = ActivityListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        super.onCreate(savedInstanceState)
+        val view = binding.root
+        setContentView(view)
 
         // Get the Intent that started this activity and extract the string
         participants = intent.getStringExtra(PARTICIPANTS)
 
         binding.randomBtn.setOnClickListener { goToSuggestionActivity("Random") }
-        binding.education.setOnClickListener { goToSuggestionActivity(binding.education.text.toString())  }
+        binding.education.setOnClickListener { goToSuggestionActivity(binding.education.text.toString()) }
         binding.recreational.setOnClickListener { goToSuggestionActivity(binding.recreational.text.toString()) }
         binding.Social.setOnClickListener { goToSuggestionActivity(binding.Social.text.toString()) }
         binding.diy.setOnClickListener { goToSuggestionActivity(binding.diy.text.toString()) }

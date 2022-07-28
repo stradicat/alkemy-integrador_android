@@ -19,9 +19,9 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
         binding = ActivityHomeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val view = binding.root
+        setContentView(view)
 
         // Validate number of participants
         binding.editText.addTextChangedListener { s ->

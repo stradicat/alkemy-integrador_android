@@ -16,8 +16,8 @@ class TermsAndConditionPopUp: DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         _binding = PopupTermsAndConditionsBinding.inflate(layoutInflater)
         return binding.root
     }
