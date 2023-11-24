@@ -1,5 +1,6 @@
 package org.alkemy.integradorandroid.ui.suggestion
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -43,7 +44,7 @@ class SuggestionActivity : AppCompatActivity() {
         )
 
         binding.backBtn.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         binding.tryAnother.setOnClickListener {
@@ -55,6 +56,7 @@ class SuggestionActivity : AppCompatActivity() {
     }
 
     // Asynchronous API request method
+    @SuppressLint("SetTextI18n")
     private fun requestApi(query: String, activities: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val restApi = BoredAPIaccess().getBoredAP()
@@ -85,7 +87,7 @@ class SuggestionActivity : AppCompatActivity() {
                             )
                             Handler(Looper.getMainLooper()).postDelayed(
                                 {
-                                    onBackPressed()
+                                    onBackPressedDispatcher.onBackPressed()
                                 },
                                 2000 // value in milliseconds
                             )
